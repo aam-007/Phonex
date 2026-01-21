@@ -45,7 +45,7 @@ bool kbhit_esc() {
 // --- CONFIG WIZARD ---
 
 void run_wizard(SimConfig *cfg) {
-    // [FIX] Removed unused 'char input[64];'
+   
     
     printf("\n\n   [PHONEX SETUP WIZARD]\n");
     printf("   ---------------------\n");
@@ -57,12 +57,13 @@ void run_wizard(SimConfig *cfg) {
     if (cfg->duration_months > 360) cfg->duration_months = 360;
 
     // 2. REGIME
-    printf("   > MARKET REGIME (1=GROWTH, 2=STAGFLATION, 3=CRASH): ");
+    printf("   > MARKET REGIME (1=GROWTH, 2=STAGFLATION, 3=CRASH, 4=LIQUIDITY CRUNCH): ");
     int reg_in;
     if (scanf("%d", &reg_in) != 1) reg_in = 1;
     switch(reg_in) {
         case 2: cfg->regime = REGIME_STAGFLATION; break;
         case 3: cfg->regime = REGIME_LIQUIDITY_CRUNCH; break;
+        case 4: cfg->regime = REGIME_LIQUIDITY_CRUNCH; break; 
         default: cfg->regime = REGIME_STABLE_GROWTH;
     }
 

@@ -15,7 +15,6 @@
 
 // --- HELPERS ---
 
-// VEDIC FORMATTER: Converts micros to string (e.g. 10,00,000.00)
 void fmt_inr(char *buffer, currency_t val) {
     if (val < 0) {
         sprintf(buffer, "-");
@@ -69,8 +68,7 @@ void ui_render_login(void) {
     printf("\n\n");
     printf(COLOR_WHT "   PHONEX SYSTEMS <%s>\n", CURRENCY_CODE);
     printf(COLOR_GRY "   ----------------------------------------\n");
-    printf(COLOR_WHT "   TERMINAL ID:  PX-MUM-01\n");
-    printf(COLOR_WHT "   LOCALE:       IN_MH_THANE\n\n");
+    printf(COLOR_WHT "   TERMINAL ID:  PX-01\n");
     printf(COLOR_RED "   RESTRICTED ACCESS // AUTHORIZED PERSONNEL ONLY\n\n");
     printf(COLOR_CYAN "   [ CONNECTING TO NSE FEED... ]\n");
     printf(COLOR_RESET);
@@ -89,9 +87,9 @@ void ui_render_frame(Portfolio *p, Asset *universe, SimConfig *cfg, int tick) {
     printf(BG_BLK COLOR_WHT);
     printf("+--------------------------------------------------+--------------------------+\n");
     printf("|  PORTFOLIO (PHONEX<%s>)                         |  MARKET VECTOR           |\n", CURRENCY_CODE);
-    
-    // ROW 1: NAV & REGIME
-    printf("|  NAV:      %-26s            |  REGIME: %-15d|\n", s_nav, cfg->regime);
+
+    // ROW 1: AUM & REGIME
+    printf("|  AUM:      %-26s            |  REGIME: %-15d|\n", s_nav, cfg->regime);
     
     // ROW 2: CASH & RATES (Mock rate)
     printf("|  CASH:     %-26s ", s_cash);
