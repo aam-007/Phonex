@@ -106,7 +106,8 @@ void ui_render_frame(Portfolio *p, Asset *universe, SimConfig *cfg, int tick) {
     printf("|  DD:       %-.2f%%        ", p->current_drawdown * 100);
     char *dd_col = p->current_drawdown < -0.10 ? COLOR_RED : COLOR_YEL;
     print_bar(abs(p->current_drawdown) * 5, 12, dd_col); // Scale for visual
-    printf("      |  NIFTY:  %-10lld   |\n", universe[0].price / CURRENCY_SCALE);
+    // [FIX] Added (long long) cast below to satisfy %lld
+    printf("      |  NIFTY:  %-10lld   |\n", (long long)(universe[0].price / CURRENCY_SCALE));
 
     printf("+--------------------------------------------------+--------------------------+\n");
 

@@ -1,4 +1,4 @@
-#define _POSIX_C_SOURCE 199309L // For nanosleep/usleep
+#define _POSIX_C_SOURCE 199309L // For nanosleep
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h> // Added for nanosleep struct
 
 #include "../phonex.h"
 
@@ -44,7 +45,7 @@ bool kbhit_esc() {
 // --- CONFIG WIZARD ---
 
 void run_wizard(SimConfig *cfg) {
-    char input[64];
+    // [FIX] Removed unused 'char input[64];'
     
     printf("\n\n   [PHONEX SETUP WIZARD]\n");
     printf("   ---------------------\n");
@@ -79,7 +80,12 @@ void run_wizard(SimConfig *cfg) {
     cfg->max_leverage = cfg->allow_margin ? 1.5 : 1.0;
 
     printf("\n   [ SYSTEM LOCKED. INITIALIZING... ]\n");
-    sleep(1);
+    
+    // [FIX] Use nanosleep instead of sleep/usleep for compliance
+    struct timespec ts;
+    ts.tv_sec = 1;
+    ts.tv_nsec = 0;
+    nanosleep(&ts, NULL);
     
     // Flush input buffer before raw mode
     int c; while ((c = getchar()) != '\n' && c != EOF);
@@ -163,8 +169,11 @@ int main(void) {
             return 0;
         }
         
-        // Wait
-        usleep(UI_TICK_DELAY_MS * 1000);
+        // Wait [FIXED: using nanosleep]
+        struct timespec ts;
+        ts.tv_sec = 0;
+        ts.tv_nsec = UI_TICK_DELAY_MS * 1000000L;
+        nanosleep(&ts, NULL);
     }
 
     reset_terminal_mode();
